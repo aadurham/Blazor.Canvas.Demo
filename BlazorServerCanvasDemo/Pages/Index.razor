@@ -1,0 +1,59 @@
+﻿@page "/"
+
+
+
+<div class="container">
+    <Canvas @ref="helper_canvas" width="@canvasWidth" height="@canvasHeight" style="border:1px solid #000000;"/>
+</div>
+
+
+@code{
+
+
+    private int width = 400;
+    private int height = 300;
+
+    private string canvasWidth => width.ToString() + "px";
+    private string canvasHeight => height.ToString() + "px";
+
+    private Canvas helper_canvas;
+
+    private Context2D context { get; set; }
+
+
+
+    protected override async Task OnAfterRenderAsync(bool firstRender)
+    {
+
+        context = await helper_canvas.GetContext2DAsync();
+
+        int startx, starty, endx, endy;
+
+        startx = 10;
+        starty = starty = (int)Math.Floor(0.5 * height);
+
+        endx = 100;
+        endy = starty - 50;
+        int thicness = 5;
+
+        string color = "black";
+        Line line1 = new Line(startx, starty, endx, endy, thicness, color);
+
+        endy = starty + 50;
+        color = "red";
+        Line line2 = new Line(startx, starty, endx, endy, thicness, color);
+
+        DrawOnCanvas.Line(context, line1);
+        DrawOnCanvas.Line(context, line2);
+
+        // Passing helper_canvas and getting the context
+        // within the method does not help either
+        // Comment the two lines above, comment out the two lines below
+        //DrawOnCanvas.Line(helper_canvas, line1);
+        //DrawOnCanvas.Line(helper_canvas, line2);
+
+    }
+
+
+
+}
