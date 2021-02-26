@@ -12,6 +12,9 @@ namespace BlazorServerCanvasDemo.DrawingRoom
        
         public static async void Line(Context2D context, Line line)
         {
+            Console.WriteLine("Line Color: " + line.color);
+            Console.WriteLine("Move To: X = " + line.startX.ToString() + " Y = " + line.startY.ToString());
+            Console.WriteLine("Line To: X = " + line.endX.ToString() + " Y = " + line.endY.ToString());
 
             await context.BeginPathAsync();
             await context.MoveToAsync(line.startX, line.startY);
